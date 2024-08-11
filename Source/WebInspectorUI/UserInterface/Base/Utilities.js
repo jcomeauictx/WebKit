@@ -626,6 +626,10 @@ Object.defineProperty(Array, "isTypedArray",
                 return false;
 
             let constructor = array.constructor;
+            // ugly hack to fix Chrome/Chromium problem
+            if (typeof window.Float16Array === "undefined") {
+                window.Float16Array = Float32Array; // prevent ReferenceError
+            }
             return constructor === Int8Array
             || constructor === Int16Array
             || constructor === Int32Array
