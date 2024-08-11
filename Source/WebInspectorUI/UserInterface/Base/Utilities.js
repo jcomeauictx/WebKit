@@ -625,17 +625,22 @@ Object.defineProperty(Array, "isTypedArray",
             if (!array)
                 return false;
 
-            let constructor = array.constructor;
-            return constructor === Int8Array
-            || constructor === Int16Array
-            || constructor === Int32Array
-            || constructor === Uint8Array
-            || constructor === Uint8ClampedArray
-            || constructor === Uint16Array
-            || constructor === Uint32Array
-            || constructor === Float16Array
-            || constructor === Float32Array
-            || constructor === Float64Array;
+            const constructor = array.constructor;
+            const arrayNames = [
+                "Int8Array",
+                "Int16Array",
+                "Int32Array",
+                "Uint8Array",
+                "Uint8ClampedArray",
+                "Uint16Array",
+                "Uint32Array",
+                "Float16Array",
+                "Float32Array",
+                "Float64Array"
+            ];
+            return arrayNames.map((s) => window[s])
+                .filter((o) => o)
+                .includes(constructor);
         }
     });
 
